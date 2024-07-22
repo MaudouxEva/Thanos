@@ -1,7 +1,8 @@
 class Epoque {
-    constructor(nom, description, recompense) {
+    constructor(nom, description, quete, recompense) {
         this.nom = nom;
         this.description = description;
+        this.quete = quete;
         this.recompense = recompense;
     }
 
@@ -10,11 +11,6 @@ class Epoque {
     }
 
     afficherQuete() {
-        throw new Error("Méthode 'afficherQuete()' non implémentée.");
-    }
-
-    realiserQuete() {
-        throw new Error("Méthode 'realiserQuete()' non implémentée.");
+        return `\n\nValeureux guerrier, voici votre quête : ${this.quete}`;
     }
 }
-

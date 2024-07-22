@@ -32,41 +32,43 @@ function afficherMenuEpoques() {
     });
 }
 
-// function afficherEpoque(epoque) {
-//     const instructions = document.getElementById("instructions");
-//     instructions.innerHTML = ""; // Clear current instructions
-//     const typewriter = new Typewriter(instructions, {
-//         loop: false,
-//         delay: 50,
-//     });
-
-//     typewriter
-//         .typeString(`Vous avez choisi : ${epoque.nom}\n`)
-//         .pauseFor(500)
-//         .typeString(epoque.description)
-//         .start();
-// }
-
 function afficherEpoque(epoque) {
     const instructions = document.getElementById("instructions");
-    instructions.innerHTML = ""; // clear current instructions
-    epoque.afficherQuete();
+    instructions.innerHTML = ""; // Clear current instructions
+    const typewriter = new Typewriter(instructions, {
+        loop: false,
+        delay: 50,
+    });
 
-    const inputElement = document.getElementById("input");
-    const handleAnswer = function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            const userInput = inputElement.value.trim();
-            if (userInput) {
-                inputElement.value = ""; // clear input
-                epoque.verifierReponse(userInput);
-            }
-        }
-    };
-
-    inputElement.removeEventListener("keypress", handleAnswer); // Remove previous event listener
-    inputElement.addEventListener("keypress", handleAnswer);
+    typewriter
+        .typeString(`Vous avez choisi : ${epoque.nom}\n`)
+        .pauseFor(500)
+        .typeString(epoque.description)
+        .pauseFor(500)
+        .typeString(epoque.afficherQuete())
+        .start();
 }
+
+// function afficherEpoque(epoque) {
+//     const instructions = document.getElementById("instructions");
+//     instructions.innerHTML = ""; // clear current instructions
+//     epoque.afficherQuete();
+
+//     const inputElement = document.getElementById("input");
+//     const handleAnswer = function(event) {
+//         if (event.key === "Enter") {
+//             event.preventDefault();
+//             const userInput = inputElement.value.trim();
+//             if (userInput) {
+//                 inputElement.value = ""; // clear input
+//                 epoque.verifierReponse(userInput);
+//             }
+//         }
+//     };
+
+//     inputElement.removeEventListener("keypress", handleAnswer); // Remove previous event listener
+//     inputElement.addEventListener("keypress", handleAnswer);
+// }
 
 function revenirEcranPrecedent() {
     if (historiqueEcrans.length > 1) {
