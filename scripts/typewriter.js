@@ -46,12 +46,12 @@ function afficherDescriptionEpoque(epoque) {
     typewriter
         .typeString(`Vous avez choisi de voyager dans : ${epoque.nom}\n\n`)
         .pauseFor(500)
-        .typeString(epoque.description + "\n\n")
+        .typeString(epoque.description + "\n\n\n")
         .pauseFor(500)
         .typeString(epoque.quete)
         .pauseFor(500)
         .callFunction(() => {
-            instructions.innerHTML += '\n\nTapez une commande pour commencer la quête...';
+            instructions.innerHTML += '\n\n\nTapez une commande pour commencer la quête...';
         })
         .start();
 }

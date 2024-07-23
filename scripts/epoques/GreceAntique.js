@@ -2,7 +2,7 @@ class GreceAntique extends Epoque {
     constructor() {
         super("la Grèce Antique", 
             "Explorez les mythes et légendes de la Grèce Antique.",
-            "Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. Vous devez réaliser ses 12 travaux à sa place. \nSoyez aussi vif qu'une loutre !", 
+            "ZUT! Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. \nVous devrez réaliser ses 12 travaux à sa place. \nSoyez aussi vif qu'une loutre !", 
             "récompense greceantique",
 
         );
@@ -146,7 +146,6 @@ class GreceAntique extends Epoque {
         if (parseInt(reponse) - 1 === question.correctOption) {
             this.correctAnswers++; // Incrémenter le compteur de bonnes réponses
             feedbackMessage = "Bonne réponse !";
-            console.log(this.correctAnswers);
         } else {
             feedbackMessage = "Réponse incorrecte. \n\nLa bonne réponse était : \n\n" + question.options[question.correctOption];
         }
@@ -170,12 +169,12 @@ class GreceAntique extends Epoque {
         if (this.correctAnswers >= 8) {
             instructions.innerText = "Félicitations l'ami ! Vous avez validé cette quête !";
             joueur.ajouterRecompense(this.recompense); // Ajouter la récompense au joueur
+            contexteActuel = "menu"; // Retourner au menu
         } else {
-            instructions.innerText = "Quête échouée. Réessayez pour obtenir au moins 8 bonnes réponses.";
+            instructions.innerText = "Quête échouée. Voulez-vous recommencer la quête ? (oui / non)";
+            contexteActuel = "reessayer"; // Mise à jour du contexte pour la décision de réessayer
         }
 
-        epoqueActuelle = null; // Retourner à l'état de choix d'époque après la fin de la quête
+
     }
 }
-
-
