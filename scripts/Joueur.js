@@ -4,8 +4,10 @@ class Joueur {
     }
 
     ajouterRecompense(recompense) {
-        this.recompenses.push(recompense);
-        this.sauvegarderRecompenses();
+        if (!this.recompenses.includes(recompense)) { // Vérifie si la récompense est déjà dans le tableau
+            this.recompenses.push(recompense);
+            this.sauvegarderRecompenses();
+        }
     }
 
     sauvegarderRecompenses() {
@@ -23,4 +25,3 @@ class Joueur {
             : "Aucune récompense obtenue pour le moment.";
     }
 }
-

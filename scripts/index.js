@@ -3,6 +3,9 @@ const inputElement = document.getElementById("input");
 const menuButton = document.getElementById("menuBtn");
 const rewardsButton = document.getElementById("recompenseBtn");
 
+// initialisation d'un nouveau joueur
+const joueur = new Joueur();
+
 let contexteActuel = "accueil"; // Pour suivre le contexte actuel
 let epoqueActuelle = null;
 
@@ -12,6 +15,8 @@ const epoques = {
     2: new GreceAntique(),
     3: new MoyenAge()
 };
+
+
 
 // Affiche l'introduction narrative au démarrage du jeu.
 afficherContexteNarratif();
@@ -23,6 +28,8 @@ rewardsButton.addEventListener("click", afficherRecompenses);
 // Gestion des événements clavier
 inputElement.addEventListener("keypress", handleInput);
 
+
+// Gérer les entrées utilisateur pour sélectionner une époque.
 function handleInput(event) {
     if (event.key === "Enter") {
         event.preventDefault(); // empêche l'action par défaut (soumission de formulaire).
@@ -75,7 +82,6 @@ function afficherMenuEpoques() {
     const buttons = instructions.getElementsByTagName("button");
     for (let button of buttons) {
         button.addEventListener("click", function() {
-            const userInput = button.getAttribute("data-epoque");
             handleMenuInput(userInput);
         });
     }
@@ -85,7 +91,8 @@ function afficherRecompenses() {
     contexteActuel = "recompenses"; // Mise à jour du contexte
     const instructions = document.getElementById("instructions");
     instructions.innerHTML = "Voici vos récompenses :\n\n";
-    // Ajoutez ici le code pour afficher les récompenses du joueur
+    const recompensesText = joueur.afficherRecompenses();
+    instructions.innerHTML += recompensesText;
 }
 
 function afficherEpoque(epoque) {

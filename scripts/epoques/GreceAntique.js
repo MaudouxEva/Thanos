@@ -119,6 +119,7 @@ class GreceAntique extends Epoque {
             }
         ];
         this.currentQuestionIndex = 0;
+        this.correctAnswers = 0; // Initialiser le compteur de bonnes réponses
     }
 
     afficherQuete() {
@@ -128,10 +129,7 @@ class GreceAntique extends Epoque {
             document.getElementById("instructions").innerText = instructionsText;
             document.getElementById("feedback").innerText = ""; // Clear feedback for new question
         } else {
-            document.getElementById("instructions").innerText = "Quête terminée. Félicitations !";
-            document.getElementById("feedback").innerText = "";
-            
-            epoqueActuelle = null; // Retourne à l'état de choix d'époque après avoir terminé toutes les questions
+            this.finQuete(); // Appeler la méthode de fin de quête
         }
     }
 
@@ -146,11 +144,11 @@ class GreceAntique extends Epoque {
 
         let feedbackMessage;
         if (parseInt(reponse) - 1 === question.correctOption) {
+            this.correctAnswers++; // Incrémenter le compteur de bonnes réponses
             feedbackMessage = "Bonne réponse !";
-            console.log("ok");
+            console.log(this.correctAnswers);
         } else {
             feedbackMessage = "Réponse incorrecte. La bonne réponse est : " + question.options[question.correctOption];
-            console.log("pas ok");
         }
 
         typewriter
@@ -159,11 +157,25 @@ class GreceAntique extends Epoque {
                 setTimeout(() => {
                     this.currentQuestionIndex++;
                     this.afficherQuete();
-                }, 200); // Délai de 2 secondes pour permettre la lecture du feedback
+                }, 2000); // Délai de 2 secondes pour permettre la lecture du feedback
             })
             .start();
     }
-}
 
+    finQuete() {
+        const instructions = document.getElementById("instructions");
+        const feedback = document.getElementById("feedback");
+        feedback.innerText = "";
+
+        if (this.correctAnswers >= 8) {
+            instructions.innerText = "Félicitations l'ami ! Vous avez validé cette quête !";
+            joueur.ajouterRecompense(this.recompense); // Ajouter la récompense au joueur
+        } else {
+            instructions.innerText = "Quête échouée. Réessayez pour obtenir au moins 8 bonnes réponses.";
+        }
+
+        epoqueActuelle = null; // Retourner à l'état de choix d'époque après la fin de la quête
+    }
+}
 
 
