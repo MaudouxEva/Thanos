@@ -1,7 +1,7 @@
 :root {
     --color-console : #fdc202be;
     --color-input : #f5e2c2;
-    --blue-tb : #C3C6DE;
+    --blue-tb : #4cb3c5;
 }
 
 body {
@@ -54,6 +54,12 @@ body {
    padding: 10px;
    text-align: center;
    line-height: 25px;;
+}
+
+#feedback {
+    color: var(--blue-tb);
+    margin-top: 10px;
+    text-align: center;
 }
 
 /* #barre-de-vie-container {

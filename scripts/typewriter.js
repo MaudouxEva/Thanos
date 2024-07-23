@@ -37,3 +37,23 @@ function afficherTexteEpoques() {
         .typeString("3. Moyen-Âge\n")
         .start();
 }
+
+
+function afficherEpoque(epoque) {
+    const instructions = document.getElementById("instructions");
+    instructions.innerHTML = ""; 
+
+    const typewriter = new Typewriter(instructions, {
+        loop: false,
+        delay: 50,
+    });
+
+    typewriter
+        .typeString(`Vous avez choisi de voyager dans : ${epoque.nom}`)
+        .pauseFor(500)
+        .typeString(epoque.description)
+        .pauseFor(500)
+        .typeString(epoque.afficherQuete())
+        .start();
+}
+

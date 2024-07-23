@@ -120,38 +120,45 @@ class GreceAntique extends Epoque {
         this.currentQuestionIndex = 0;
     }
 
-    
-    realiserQuete() {
-        
-    } 
+    afficherQuete() {
+        if (this.currentQuestionIndex < this.questions.length) {
+            const question = this.questions[this.currentQuestionIndex];
+            const instructionsText = question.question + question.options.map((opt, index) => `${index + 1}. ${opt}`).join("\n");
+            document.getElementById("instructions").innerText = instructionsText;
+            document.getElementById("feedback").innerText = ""; // Clear feedback for new question
+        } else {
+            document.getElementById("instructions").innerText = "Quête terminée. Félicitations !";
+            document.getElementById("feedback").innerText = "";
+            epoqueActuelle = null; // Retourne à l'état de choix d'époque après avoir terminé toutes les questions
+        }
+    }
 
+    verifierReponse(reponse) {
+        const question = this.questions[this.currentQuestionIndex];
+        const feedbackElement = document.getElementById("feedback");
 
-    // realiserQuete() {
-    //     if (this.currentQuestionIndex >= this.questions.length) {
-    //         this.afficherVictoire();
-    //         return;
-    //     }
+        const typewriter = new Typewriter(feedbackElement, {
+            loop: false,
+            delay: 50,
+        });
 
-    //     const question = this.questions[this.currentQuestionIndex];
-    //     let questionText = `${question.question}\n`;
-    //     question.options.forEach((option, index) => {
-    //         questionText += `${index + 1}. ${option}\n`;
-    //     });
+        let feedbackMessage;
+        if (parseInt(reponse) - 1 === question.correctOption) {
+            feedbackMessage = "Bonne réponse !";
+            console.log("ok");
+        } else {
+            feedbackMessage = "Réponse incorrecte. La bonne réponse est : " + question.options[question.correctOption];
+            console.log("pas ok");
+        }
 
-    //     afficherInstructions(questionText);
-    // }
-
-    // verifierReponse(reponse) {
-    //     const question = this.questions[this.currentQuestionIndex];
-    //     if (parseInt(reponse) - 1 === question.correctOption) {
-    //         this.currentQuestionIndex++;
-    //     } else {
-    //         afficherInstructions("Réponse incorrecte. Réessayez.");
-    //     }
-    //     this.afficherQuete();
-    // }
-
-    // afficherVictoire() {
-    //     afficherInstructions("Félicitations ! Vous avez réussi les 12 travaux d'Héraclès !");
-    // }
+        typewriter
+            .typeString(feedbackMessage)
+            .callFunction(() => {
+                setTimeout(() => {
+                    this.currentQuestionIndex++;
+                    this.afficherQuete();
+                }, 2000); // Délai de 2 secondes pour permettre la lecture du feedback
+            })
+            .start();
+    }
 }
