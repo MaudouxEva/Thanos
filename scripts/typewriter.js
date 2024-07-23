@@ -1,5 +1,3 @@
-/* gestion de l'affichage avec effet typewriter : contexte narratif, texte des époques */
-
 function afficherContexteNarratif() {
     const instructions = document.getElementById("instructions");
     const typewriter = new Typewriter(instructions, {
@@ -38,22 +36,22 @@ function afficherTexteEpoques() {
         .start();
 }
 
-
-function afficherEpoque(epoque) {
+function afficherDescriptionEpoque(epoque) {
     const instructions = document.getElementById("instructions");
-    instructions.innerHTML = ""; 
-
     const typewriter = new Typewriter(instructions, {
         loop: false,
         delay: 50,
     });
 
     typewriter
-        .typeString(`Vous avez choisi de voyager dans : ${epoque.nom}`)
+        .typeString(`Vous avez choisi de voyager dans : ${epoque.nom}\n\n`)
         .pauseFor(500)
-        .typeString(epoque.description)
+        .typeString(epoque.description + "\n\n")
         .pauseFor(500)
-        .typeString(epoque.afficherQuete())
+        .typeString(epoque.quete)
+        .pauseFor(500)
+        .callFunction(() => {
+            instructions.innerHTML += '\n\nTapez une commande pour commencer la quête...';
+        })
         .start();
 }
-

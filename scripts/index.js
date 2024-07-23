@@ -16,8 +16,6 @@ const epoques = {
     3: new MoyenAge()
 };
 
-
-
 // Affiche l'introduction narrative au démarrage du jeu.
 afficherContexteNarratif();
 
@@ -28,8 +26,6 @@ rewardsButton.addEventListener("click", afficherRecompenses);
 // Gestion des événements clavier
 inputElement.addEventListener("keypress", handleInput);
 
-
-// Gérer les entrées utilisateur pour sélectionner une époque.
 function handleInput(event) {
     if (event.key === "Enter") {
         event.preventDefault(); // empêche l'action par défaut (soumission de formulaire).
@@ -44,6 +40,10 @@ function handleInput(event) {
                 case "menu":
                     handleMenuInput(userInput);
                     break;
+                case "description":
+                    afficherQuete(epoqueActuelle);
+                    contexteActuel = "quete";
+                    break;
                 case "quete":
                     handleQuestInput(userInput);
                     break;
@@ -54,17 +54,16 @@ function handleInput(event) {
     }
 }
 
-// Gérer les entrées utilisateur pour sélectionner une époque.
 function handleMenuInput(userInput) {
     if (userInput in epoques) {
-        afficherEpoque(epoques[userInput]);
-        contexteActuel = "quete";
+        epoqueActuelle = epoques[userInput];
+        afficherDescriptionEpoque(epoqueActuelle);
+        contexteActuel = "description";
     } else {
         afficherInstructions("Choix invalide. Veuillez entrer 1, 2 ou 3.");
     }
 }
 
-// Gérer les entrées utilisateur lors des quêtes
 function handleQuestInput(userInput) {
     if (epoqueActuelle) {
         epoqueActuelle.verifierReponse(userInput);
@@ -95,7 +94,7 @@ function afficherRecompenses() {
     instructions.innerHTML += recompensesText;
 }
 
-function afficherEpoque(epoque) {
+function afficherQuete(epoque) {
     epoqueActuelle = epoque;
     contexteActuel = "quete"; // Mise à jour du contexte
     const instructions = document.getElementById("instructions");
