@@ -1,5 +1,10 @@
-// Récupère l'élément d'entrée du joueur
+// Récupère l'élément d'entrée du joueur et les boutons de navigation
 const inputElement = document.getElementById("input");
+const menuButton = document.getElementById("menuBtn");
+const rewardsButton = document.getElementById("recompenseBtn");
+
+let contexteActuel = "accueil"; // Pour suivre le contexte actuel
+let epoqueActuelle = null;
 
 // Définit un objet contenant les différentes époques disponibles associées à un num
 const epoques = {
@@ -11,52 +16,82 @@ const epoques = {
 // Affiche l'introduction narrative au démarrage du jeu.
 afficherContexteNarratif();
 
-// Gestion des événements clavier
-inputElement.addEventListener("keypress", handleInitialInput);
+// Ajouter des gestionnaires d'événements pour les boutons
+menuButton.addEventListener("click", afficherMenuEpoques);
+rewardsButton.addEventListener("click", afficherRecompenses);
 
-// Gérer la première entrée utilisateur après le contexte narratif
-function handleInitialInput(event) {
+// Gestion des événements clavier
+inputElement.addEventListener("keypress", handleInput);
+
+function handleInput(event) {
     if (event.key === "Enter") {
-        event.preventDefault(); //empêche l'action par défaut (soumission de formulaire).
+        event.preventDefault(); // empêche l'action par défaut (soumission de formulaire).
         const userInput = inputElement.value.trim();
         if (userInput) {
             inputElement.value = ""; // efface l'entrée
-            afficherMenuEpoques(); 
-            inputElement.removeEventListener("keypress", handleInitialInput);
-            inputElement.addEventListener("keypress", handleMenuInput); // Remplace l'écouteur d'événements initial par celui du menu
+            switch (contexteActuel) {
+                case "accueil":
+                    afficherMenuEpoques();
+                    contexteActuel = "menu";
+                    break;
+                case "menu":
+                    handleMenuInput(userInput);
+                    break;
+                case "quete":
+                    handleQuestInput(userInput);
+                    break;
+                default:
+                    console.error("Contexte inconnu : " + contexteActuel);
+            }
         }
     }
 }
 
 // Gérer les entrées utilisateur pour sélectionner une époque.
-function handleMenuInput(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        const userInput = inputElement.value.trim();
-        if (userInput) {
-            inputElement.value = ""; // clear input
-                if (userInput in epoques) {
-                    afficherEpoque(epoques[userInput]);
-                    inputElement.removeEventListener("keypress", handleMenuInput);
-                    inputElement.addEventListener("keypress", handleQuestInput); // Remplace l'écouteur du menu par celui des quêtes
-                } else {
-                    afficherInstructions("Choix invalide. Veuillez entrer 1, 2 ou 3.");
-                }
-            }
-        }
+function handleMenuInput(userInput) {
+    if (userInput in epoques) {
+        afficherEpoque(epoques[userInput]);
+        contexteActuel = "quete";
+    } else {
+        afficherInstructions("Choix invalide. Veuillez entrer 1, 2 ou 3.");
     }
+}
 
-    // Gérer les entrées utilisateur lors des quêtes
-    function handleQuestInput(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            const userInput = inputElement.value.trim();
-            if (userInput) {
-                inputElement.value = ""; // clear input
-                if (epoqueActuelle) {
-                    // Si une époque actuelle est définie (époqueActuelle), vérifie la réponse de l'utilisateur
-                    epoqueActuelle.verifierReponse(userInput);
-                }
-            }
-        }
+// Gérer les entrées utilisateur lors des quêtes
+function handleQuestInput(userInput) {
+    if (epoqueActuelle) {
+        epoqueActuelle.verifierReponse(userInput);
     }
+}
+
+function afficherMenuEpoques() {
+    contexteActuel = "menu"; // Mise à jour du contexte
+    const instructions = document.getElementById("instructions");
+    instructions.innerHTML = "Choisissez une époque à explorer :\n\n\n" +
+        "1. Égypte Antique\n\n" +
+        "2. Grèce Antique\n\n" +
+        "3. Moyen-Âge\n\n";
+
+    const buttons = instructions.getElementsByTagName("button");
+    for (let button of buttons) {
+        button.addEventListener("click", function() {
+            const userInput = button.getAttribute("data-epoque");
+            handleMenuInput(userInput);
+        });
+    }
+}
+
+function afficherRecompenses() {
+    contexteActuel = "recompenses"; // Mise à jour du contexte
+    const instructions = document.getElementById("instructions");
+    instructions.innerHTML = "Voici vos récompenses :\n\n";
+    // Ajoutez ici le code pour afficher les récompenses du joueur
+}
+
+function afficherEpoque(epoque) {
+    epoqueActuelle = epoque;
+    contexteActuel = "quete"; // Mise à jour du contexte
+    const instructions = document.getElementById("instructions");
+    instructions.innerHTML = ""; 
+    epoque.afficherQuete();
+}

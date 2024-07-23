@@ -2,7 +2,8 @@ class GreceAntique extends Epoque {
     constructor() {
         super("la Grèce Antique", 
             "Explorez les mythes et légendes de la Grèce Antique.",
-            "Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. Vous devez réaliser ses 12 travaux à sa place. \nSoyez aussi vif qu'une loutre !",
+            "Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. Vous devez réaliser ses 12 travaux à sa place. \nSoyez aussi vif qu'une loutre !", 
+            "récompense greceantique",
 
         );
 
@@ -129,6 +130,7 @@ class GreceAntique extends Epoque {
         } else {
             document.getElementById("instructions").innerText = "Quête terminée. Félicitations !";
             document.getElementById("feedback").innerText = "";
+            
             epoqueActuelle = null; // Retourne à l'état de choix d'époque après avoir terminé toutes les questions
         }
     }
@@ -157,8 +159,11 @@ class GreceAntique extends Epoque {
                 setTimeout(() => {
                     this.currentQuestionIndex++;
                     this.afficherQuete();
-                }, 2000); // Délai de 2 secondes pour permettre la lecture du feedback
+                }, 200); // Délai de 2 secondes pour permettre la lecture du feedback
             })
             .start();
     }
 }
+
+
+

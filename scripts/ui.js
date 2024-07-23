@@ -1,8 +1,6 @@
-let historiqueEcrans = [];
-
 function afficherMenuEpoques() {
     const instructions = document.getElementById("instructions");
-    instructions.innerHTML = ""; // supprime les précédentes instructions
+    instructions.innerHTML = ""; // Supprime les précédentes instructions
     afficherTexteEpoques();
 }
 
@@ -18,17 +16,9 @@ function afficherInstructions(message) {
     instructions.innerHTML = message;
 }
 
-function revenirEcranPrecedent() {
-    if (historiqueEcrans.length > 1) {
-        historiqueEcrans.pop();
-        const ecranPrecedent = historiqueEcrans[historiqueEcrans.length - 1];
-        ecranPrecedent();
-    }
+function afficherRecompenses() {
+    const instructions = document.getElementById("instructions");
+    instructions.innerHTML = "Voici vos récompenses :\n\n";
+    // Ajoutez ici le code pour afficher les récompenses du joueur
 }
 
-// Ajouter un gestionnaire d'événements global pour la touche Escape
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        revenirEcranPrecedent();
-    }
-});

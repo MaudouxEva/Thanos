@@ -9,10 +9,30 @@ body {
     background-color: #000;
     color: var(--color-console);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-top: 20px;
+    padding: 20px;
+    button {
+        width: 200px;
+        padding: 10px 20px;
+        background-color: var(--color-console);
+        border-radius: 10px;
+        border: none;
+        color: var(--color-input);
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 16px;
+    }
 }
 
 #app {
