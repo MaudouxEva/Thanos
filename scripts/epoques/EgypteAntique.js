@@ -1,15 +1,103 @@
 class EgypteAntique extends Epoque {
     constructor() {
-        super("Égypte Antique", "Explorez les mystères des pharaons et des pyramides.", "Amulette d'Anubis");
+        super(
+            "Égypte Antique",
+            "Explorez les mystères de l'Égypte Antique.",
+            "Déchiffrez les hiéroglyphes pour découvrir les phrases cachées.",
+            "récompense egypte antique"
+        );
+        
+        this.phrases = [
+            "Le petit chat dort au soleil",
+            "La bave de crapaud n'atteint pas la blanche colombe",
+            "les singes de la foret dansent à Liège"
+        ];
+        this.phraseIndex = 0;
+        this.motsTrouves = [];
+        this.tentativesRatees = 0;
+        this.phrasesReussies = 0;
     }
 
     afficherQuete() {
-        return "Quête de l'Égypte Antique : Trouvez l'Amulette d'Anubis.";
+        const phrase = this.phrases[this.phraseIndex];
+        const motsPhrase = phrase.split(' ');
+        const phraseAvecMotsTrouves = motsPhrase
+            .map(mot => this.motsTrouves.includes(mot) ? mot : '_'.repeat(mot.length))
+            .join(' ');
+
+        document.getElementById("instructions").innerHTML = `
+            <p class="hieroglyph">${phrase}</p>
+            <p>${phraseAvecMotsTrouves}</p>
+        `;
     }
 
-    realiserQuete() {
-        console.log("Vous avez trouvé l'Amulette d'Anubis !");
-        return this.recompense;
+    verifierReponse(reponse) {
+        const phrase = this.phrases[this.phraseIndex];
+        const motsPhrase = phrase.split(' ');
+        const feedbackElement = document.getElementById("feedback");
+
+        if (motsPhrase.includes(reponse)) {
+            if (!this.motsTrouves.includes(reponse)) {
+                this.motsTrouves.push(reponse);
+                feedbackElement.innerText = "Vous avez trouvé un mot !";
+            } else {
+                feedbackElement.innerText = "Ce mot a déjà été trouvé.";
+            }
+        } else {
+            this.tentativesRatees++;
+            feedbackElement.innerText = `Ce mot n'est pas présent dans la phrase. Tentatives restantes : ${10 - this.tentativesRatees}`;
+        }
+
+        // Effacer le feedback après 2 secondes
+        setTimeout(() => {
+            feedbackElement.innerText = "";
+        }, 2000);
+
+        // Vérifier si toutes les tentatives ont été utilisées
+        if (this.tentativesRatees >= 10) {
+            this.passerPhraseSuivante(false);
+        } else {
+            const tousMotsTrouves = motsPhrase.every(mot => this.motsTrouves.includes(mot));
+            if (tousMotsTrouves) {
+                this.passerPhraseSuivante(true);
+            } else {
+                this.afficherQuete();
+            }
+        }
+    }
+
+    passerPhraseSuivante(reussie) {
+        if (reussie) {
+            this.phrasesReussies++;
+        }
+
+        this.phraseIndex++;
+        this.motsTrouves = [];
+        this.tentativesRatees = 0;
+
+        if (this.phraseIndex < this.phrases.length) {
+            this.afficherQuete();
+        } else {
+            this.finQuete();
+        }
+    }
+
+    finQuete() {
+        const instructions = document.getElementById("instructions");
+        const feedback = document.getElementById("feedback");
+        feedback.innerText = "";
+
+        if (this.phrasesReussies >= 2) {
+            instructions.innerText = "Félicitations l'ami ! Vous avez validé cette quête !";
+            joueur.ajouterRecompense(this.recompense); // Ajouter la récompense au joueur
+        } else {
+            instructions.innerHTML = `
+                Quête échouée. Vous devez réussir au moins 2 phrases sur 3.<br>
+                Recommencer la quête? (oui / non)
+            `;
+            contexteActuel = "reessayerQuete";
+        }
+
+        epoqueActuelle = null; // Retourner à l'état de choix d'époque après la fin de la quête
     }
 }
-

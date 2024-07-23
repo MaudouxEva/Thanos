@@ -8,7 +8,6 @@ const joueur = new Joueur();
 
 let contexteActuel = "accueil"; // Pour suivre le contexte actuel
 let epoqueActuelle = null;
-let reessayerQuete = false; // Nouveau flag pour vérifier si l'utilisateur doit décider de réessayer la quête
 
 // Définit un objet contenant les différentes époques disponibles associées à un num
 const epoques = {
@@ -30,10 +29,9 @@ inputElement.addEventListener("keypress", handleInput);
 function handleInput(event) {
     if (event.key === "Enter") {
         event.preventDefault(); // empêche l'action par défaut (soumission de formulaire).
-        const userInput = inputElement.value.trim().toLowerCase();
+        const userInput = inputElement.value.trim();
         if (userInput) {
             inputElement.value = ""; // efface l'entrée
-            console.log(`Contexte actuel: ${contexteActuel}, Entrée utilisateur: ${userInput}`); // Ajout du log
             switch (contexteActuel) {
                 case "accueil":
                     afficherMenuEpoques();
@@ -49,13 +47,26 @@ function handleInput(event) {
                 case "quete":
                     handleQuestInput(userInput);
                     break;
-                case "reessayer":
+                case "reessayerQuete":
                     handleReessayerQuete(userInput);
                     break;
                 default:
                     console.error("Contexte inconnu : " + contexteActuel);
             }
         }
+    }
+}
+
+function handleReessayerQuete(userInput) {
+    if (userInput.toLowerCase() === "oui") {
+        epoqueActuelle = new EgypteAntique(); // Réinitialiser l'époque actuelle
+        afficherDescriptionEpoque(epoqueActuelle);
+        contexteActuel = "description";
+    } else if (userInput.toLowerCase() === "non") {
+        afficherMenuEpoques();
+        contexteActuel = "menu";
+    } else {
+        afficherInstructions("Veuillez répondre par 'oui' ou 'non'.");
     }
 }
 
@@ -75,28 +86,8 @@ function handleQuestInput(userInput) {
     }
 }
 
-function handleReessayerQuete(userInput) {
-    console.log(`Reessayer quête, Entrée utilisateur: ${userInput}`); // Ajout du log
-    if (userInput === "oui") {
-        if (epoqueActuelle) {
-            epoqueActuelle.currentQuestionIndex = 0; // Réinitialiser l'index des questions
-            epoqueActuelle.correctAnswers = 0; // Réinitialiser le compteur de bonnes réponses
-            afficherQuete(epoqueActuelle);
-            contexteActuel = "quete";
-        } else {
-            console.error("Epoque actuelle est null lors de la tentative de réessayer la quête.");
-        }
-    } else if (userInput === "non") {
-        afficherMenuEpoques();
-        contexteActuel = "menu";
-    } else {
-        afficherInstructions("Veuillez répondre par 'oui' ou 'non'. Voulez-vous recommencer la quête ?");
-    }
-}
-
 function afficherMenuEpoques() {
     contexteActuel = "menu"; // Mise à jour du contexte
-    console.log(`Contexte actuel: ${contexteActuel}`); // Ajout du log
     const instructions = document.getElementById("instructions");
     instructions.innerHTML = "Choisissez une époque à explorer :\n\n\n" +
         "1. Égypte Antique\n\n" +
@@ -106,7 +97,6 @@ function afficherMenuEpoques() {
 
 function afficherRecompenses() {
     contexteActuel = "recompenses"; // Mise à jour du contexte
-    console.log(`Contexte actuel: ${contexteActuel}`); // Ajout du log
     const instructions = document.getElementById("instructions");
     instructions.innerHTML = "Voici vos récompenses :\n\n";
     const recompensesText = joueur.afficherRecompenses();
@@ -116,7 +106,6 @@ function afficherRecompenses() {
 function afficherQuete(epoque) {
     epoqueActuelle = epoque;
     contexteActuel = "quete"; // Mise à jour du contexte
-    console.log(`Contexte actuel: ${contexteActuel}`); // Ajout du log
     const instructions = document.getElementById("instructions");
     instructions.innerHTML = ""; 
     epoque.afficherQuete();
@@ -136,8 +125,5 @@ function afficherDescriptionEpoque(epoque) {
         .pauseFor(500)
         .typeString(epoque.quete)
         .pauseFor(500)
-        .callFunction(() => {
-            instructions.innerHTML += '\n\nTapez une commande pour commencer la quête...';
-        })
         .start();
 }
