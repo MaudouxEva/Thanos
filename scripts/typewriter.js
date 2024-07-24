@@ -36,26 +36,6 @@ function afficherTexteEpoques() {
         .start();
 }
 
-function afficherDescriptionEpoque(epoque) {
-    const instructions = document.getElementById("instructions");
-    const typewriter = new Typewriter(instructions, {
-        loop: false,
-        delay: 50,
-    });
-
-    typewriter
-        .typeString(`Vous avez choisi de voyager dans : ${epoque.nom}\n\n`)
-        .pauseFor(500)
-        .typeString(epoque.description + "\n\n\n")
-        .pauseFor(500)
-        .typeString(epoque.quete)
-        .pauseFor(500)
-        .callFunction(() => {
-            instructions.innerHTML += '\n\n\nTapez une commande pour commencer la quête...';
-        })
-        .start();
-}
-
 function afficherMessageRecompense(recompense) {
     const instructions = document.getElementById("instructions");
     const typewriter = new Typewriter(instructions, {

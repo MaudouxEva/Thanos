@@ -83,6 +83,7 @@ function handleReessayerQuete(userInput) {
         afficherInstructions("Veuillez répondre par 'oui' ou 'non'.");
     }
 }
+
 function handleMenuInput(userInput) {
     if (userInput in epoques) {
         epoqueActuelle = epoques[userInput];
@@ -125,7 +126,28 @@ function afficherQuete(epoque) {
 }
 
 function afficherDescriptionEpoque(epoque) {
+    const img_banniere = document.getElementById('banniere');
     const instructions = document.getElementById("instructions");
+    let imageSrc = "";
+
+    switch (epoque.nom) {
+        case "Égypte Antique":
+            imageSrc = "egypte-ban.jpg";
+            break;
+        case "Grèce Antique":
+            imageSrc = "grece-ban.jpg";
+            break;
+        case "Moyen Âge":
+            imageSrc = "moyen-age-ban.jpg";
+            break;
+    }
+
+    img_banniere.src = './images/' + imageSrc;
+    img_banniere.alt = "Bannière " + epoque.nom;
+    img_banniere.classList.add("banniere");
+
+    instructions.innerHTML = ""; // Clear previous instructions
+
     const typewriter = new Typewriter(instructions, {
         loop: false,
         delay: 50,

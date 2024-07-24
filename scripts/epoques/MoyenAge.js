@@ -18,22 +18,27 @@ class MoyenAge extends Epoque {
     }
 
     afficherQuete() {
+        if (this.queteReussie) {
+            this.finQuete(true);
+            return;
+        }
+
         document.getElementById("instructions").innerHTML = `
-        <p class="titre">Vous devez apaiser la licorne enchantée sans la blesser mortellement.</p>
-        <div class="infos-combat">
-            <div class="stat">
-                <p>Statistiques des joueurs</p>
-                <p>Vie de la licorne: ${this.licorneVie}</p>
-                <p>Vie du joueur: ${this.joueurVie}</p>
-                <p>Niveau d'apaisement: ${this.apaisement}</p>
+            <p class="titre">Vous devez apaiser la licorne enchantée sans la blesser mortellement.</p>
+            <div class="infos-combat">
+                <div class="stat">
+                    <p>Statistiques des joueurs</p>
+                    <p>Vie de la licorne: ${this.licorneVie}</p>
+                    <p>Vie du joueur: ${this.joueurVie}</p>
+                    <p>Niveau d'apaisement: ${this.apaisement}</p>
+                </div>
+                <div class="actions">
+                    <p>Actions disponibles</p>
+                    <p>1. Attaque Mesurée (A)</p>
+                    <p>2. Défense (D)</p>
+                    <p>3. Chant Enchanteur (C)</p>
+                </div>
             </div>
-            <div class="actions">
-                <p>Actions disponibles</p>
-                <p>1. Attaque Mesurée (A)</p>
-                <p>2. Défense (D)</p>
-                <p>3. Chant Enchanteur (C)</p>
-            </div>
-        </div>
         `;
     }
 
@@ -41,25 +46,33 @@ class MoyenAge extends Epoque {
         const feedbackElement = document.getElementById("feedback");
         reponse = reponse.toUpperCase();
 
+        let actionMessage = "";
+
         if (reponse === "A") {
-            this.attaqueMesuree();
-            feedbackElement.innerText = "Vous avez effectué une attaque mesurée.";
+            actionMessage = this.attaqueMesuree();
         } else if (reponse === "D") {
-            this.defense();
-            feedbackElement.innerText = "Vous vous êtes défendu.";
+            actionMessage = this.defense();
         } else if (reponse === "C") {
-            this.chantEnchanteur();
-            feedbackElement.innerText = "Vous avez chanté une mélodie apaisante.";
+            actionMessage = this.chantEnchanteur();
         } else {
-            feedbackElement.innerText = "Action invalide. Veuillez entrer A, D ou C.";
+            actionMessage = "Action invalide. Veuillez entrer A, D ou C.";
         }
 
-        // Effacer le feedback après 2 secondes
+        const typewriter = new Typewriter(feedbackElement, {
+            loop: false,
+            delay: 50,
+        });
+
+        typewriter
+            .typeString(actionMessage)
+            .pauseFor(500)
+            .typeString(`\nLa licorne enchantée vous inflige ${this.licorneAttaque()} dégâts.`)
+            .start();
+
         setTimeout(() => {
             feedbackElement.innerText = "";
         }, 2000);
 
-        // Vérifier l'état du combat
         this.verifierEtatCombat();
     }
 
@@ -67,27 +80,25 @@ class MoyenAge extends Epoque {
         const degats = Math.floor(Math.random() * 10) + 5; // Dégâts entre 5 et 15
         this.licorneVie -= degats;
         this.apaisement += 5; // Augmente le niveau d'apaisement
-
-        this.licorneAttaque();
+        return `Vous avez effectué une attaque mesurée et infligé ${degats} dégâts à la licorne.`;
     }
 
     defense() {
         const reductionDegats = Math.floor(Math.random() * 5) + 5; // Réduit les dégâts de la prochaine attaque de 5 à 10
         this.joueurVie += reductionDegats; // Augmente la vie du joueur pour simuler une réduction des dégâts
-
-        this.licorneAttaque();
+        return `Vous vous êtes défendu et avez réduit les dégâts de ${reductionDegats} points.`;
     }
 
     chantEnchanteur() {
         const apaisementGain = Math.floor(Math.random() * 15) + 10; // Gain d'apaisement entre 10 et 25
         this.apaisement += apaisementGain;
-
-        this.licorneAttaque();
+        return `Vous avez chanté une mélodie apaisante et augmenté le niveau d'apaisement de ${apaisementGain} points.`;
     }
 
     licorneAttaque() {
         const degats = Math.floor(Math.random() * 10) + 5; // Dégâts entre 5 et 15
         this.joueurVie -= degats;
+        return degats;
     }
 
     verifierEtatCombat() {
@@ -102,12 +113,12 @@ class MoyenAge extends Epoque {
         }
     }
 
-    finQuete(reussie) {
+    finQuete(reussi) {
         const instructions = document.getElementById("instructions");
         const feedback = document.getElementById("feedback");
         feedback.innerText = "";
 
-        if (reussie) {
+        if (reussi) {
             this.queteReussie = true; // Marquer la quête comme réussie
             const typewriter = new Typewriter(instructions, {
                 loop: false,
@@ -127,6 +138,6 @@ class MoyenAge extends Epoque {
             Recommencer la quête? (oui / non)
             `;
             contexteActuel = "reessayerQuete";
-        }        
+        }
     }
 }

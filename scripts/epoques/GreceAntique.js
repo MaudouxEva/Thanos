@@ -1,6 +1,6 @@
 class GreceAntique extends Epoque {
     constructor() {
-        super("la Grèce Antique", 
+        super("Grèce Antique", 
             "Explorez les mythes et légendes de la Grèce Antique.",
             "ZUT! Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. \nVous devrez réaliser ses 12 travaux à sa place. \nSoyez aussi vif qu'une loutre !", 
             "une amulette grecque"
