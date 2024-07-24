@@ -52,7 +52,7 @@ body {
 }
 
 #app {
-    width: 90%;
+    width: 100%;
     max-width: 800px;
     background-color: #111;
     padding: 20px;
@@ -63,7 +63,7 @@ body {
 #output-container {
     white-space: pre-wrap; /*  préserve tous les espaces et sauts de ligne dans le texte */
     overflow-y: auto; /* barre de défilement verticale si le contenu dépasse 500 */
-    height: 500px;
+    height: 600px;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
@@ -82,20 +82,49 @@ body {
     background-color: #111;
     color: var(--color-input);
     border-radius: 5px;
-    font-size: 14px;;
+    font-size: 14px;
+
 }
 
 #instructions {
     font-size: 15px;
    padding: 10px;
    text-align: center;
-   line-height: 25px;;
+   line-height: 25px;
 }
 
 #feedback {
     color: var(--blue-tb);
     margin-top: 10px;
     text-align: center;
+}
+
+.titre {
+    font-size: 18px;
+    margin: 0;
+}
+
+.infos-combat {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    p:first-child {
+        padding-bottom: 20px;
+        font-weight: 600;
+        font-size: 17px;
+    }
 }
 
 /* #barre-de-vie-container {

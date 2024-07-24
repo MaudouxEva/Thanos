@@ -59,9 +59,23 @@ function handleInput(event) {
 
 function handleReessayerQuete(userInput) {
     if (userInput.toLowerCase() === "oui") {
-        epoqueActuelle = new EgypteAntique(); // Réinitialiser l'époque actuelle
-        afficherDescriptionEpoque(epoqueActuelle);
-        contexteActuel = "description";
+        if (epoqueActuelle instanceof EgypteAntique) {
+            epoqueActuelle = new EgypteAntique(); // Réinitialiser l'époque actuelle
+        } else if (epoqueActuelle instanceof GreceAntique) {
+            epoqueActuelle = new GreceAntique(); // Réinitialiser l'époque actuelle
+        } else if (epoqueActuelle instanceof MoyenAge) {
+            epoqueActuelle = new MoyenAge(); // Réinitialiser l'époque actuelle
+        }
+        if (!epoqueActuelle.queteReussie) {
+            afficherDescriptionEpoque(epoqueActuelle);
+            contexteActuel = "description";
+        } else {
+            afficherInstructions("Vous avez déjà réussi cette quête.");
+            setTimeout(() => {
+                afficherMenuEpoques();
+                contexteActuel = "menu";
+            }, 2000);
+        }
     } else if (userInput.toLowerCase() === "non") {
         afficherMenuEpoques();
         contexteActuel = "menu";
@@ -69,7 +83,6 @@ function handleReessayerQuete(userInput) {
         afficherInstructions("Veuillez répondre par 'oui' ou 'non'.");
     }
 }
-
 function handleMenuInput(userInput) {
     if (userInput in epoques) {
         epoqueActuelle = epoques[userInput];

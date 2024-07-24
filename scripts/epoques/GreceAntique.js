@@ -3,7 +3,7 @@ class GreceAntique extends Epoque {
         super("la Grèce Antique", 
             "Explorez les mythes et légendes de la Grèce Antique.",
             "ZUT! Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. \nVous devrez réaliser ses 12 travaux à sa place. \nSoyez aussi vif qu'une loutre !", 
-            "récompense greceantique",
+            "une amulette grecque"
 
         );
 
@@ -129,7 +129,7 @@ class GreceAntique extends Epoque {
             document.getElementById("instructions").innerText = instructionsText;
             document.getElementById("feedback").innerText = ""; // Clear feedback for new question
         } else {
-            this.finQuete(); // Appeler la méthode de fin de quête
+            this.finQuete(this.correctAnswers >= 8); // Appeler la méthode de fin de quête
         }
     }
 
@@ -147,7 +147,7 @@ class GreceAntique extends Epoque {
             this.correctAnswers++; // Incrémenter le compteur de bonnes réponses
             feedbackMessage = "Bonne réponse !";
         } else {
-            feedbackMessage = "Réponse incorrecte. \n\nLa bonne réponse était : \n\n" + question.options[question.correctOption];
+            feedbackMessage = "Réponse incorrecte. La bonne réponse est : " + question.options[question.correctOption];
         }
 
         typewriter
@@ -159,22 +159,5 @@ class GreceAntique extends Epoque {
                 }, 2000); // Délai de 2 secondes pour permettre la lecture du feedback
             })
             .start();
-    }
-
-    finQuete() {
-        const instructions = document.getElementById("instructions");
-        const feedback = document.getElementById("feedback");
-        feedback.innerText = "";
-
-        if (this.correctAnswers >= 8) {
-            instructions.innerText = "Félicitations l'ami ! Vous avez validé cette quête !";
-            joueur.ajouterRecompense(this.recompense); // Ajouter la récompense au joueur
-            contexteActuel = "menu"; // Retourner au menu
-        } else {
-            instructions.innerText = "Quête échouée. Voulez-vous recommencer la quête ? (oui / non)";
-            contexteActuel = "reessayer"; // Mise à jour du contexte pour la décision de réessayer
-        }
-
-
     }
 }

@@ -4,7 +4,7 @@ class EgypteAntique extends Epoque {
             "Égypte Antique",
             "Explorez les mystères de l'Égypte Antique.",
             "Déchiffrez les hiéroglyphes pour découvrir les phrases cachées.",
-            "récompense egypte antique"
+            "un scarabée d'or"
         );
         
         this.phrases = [
@@ -78,26 +78,7 @@ class EgypteAntique extends Epoque {
         if (this.phraseIndex < this.phrases.length) {
             this.afficherQuete();
         } else {
-            this.finQuete();
+            this.finQuete(this.phrasesReussies >= 2); // Appeler la méthode de fin de quête
         }
-    }
-
-    finQuete() {
-        const instructions = document.getElementById("instructions");
-        const feedback = document.getElementById("feedback");
-        feedback.innerText = "";
-
-        if (this.phrasesReussies >= 2) {
-            instructions.innerText = "Félicitations l'ami ! Vous avez validé cette quête !";
-            joueur.ajouterRecompense(this.recompense); // Ajouter la récompense au joueur
-        } else {
-            instructions.innerHTML = `
-                Quête échouée. Vous devez réussir au moins 2 phrases sur 3.<br>
-                Recommencer la quête? (oui / non)
-            `;
-            contexteActuel = "reessayerQuete";
-        }
-
-        epoqueActuelle = null; // Retourner à l'état de choix d'époque après la fin de la quête
     }
 }
