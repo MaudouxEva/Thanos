@@ -8,6 +8,7 @@ const joueur = new Joueur();
 
 let contexteActuel = "accueil"; // Pour suivre le contexte actuel
 let epoqueActuelle = null;
+let typewriterInstance = null; // Stocker l'instance de Typewriter
 
 // Définit un objet contenant les différentes époques disponibles associées à un num
 const epoques = {
@@ -25,6 +26,20 @@ rewardsButton.addEventListener("click", afficherRecompenses);
 
 // Gestion des événements clavier
 inputElement.addEventListener("keypress", handleInput);
+document.addEventListener("keydown", handleSkip); // Global keydown event
+
+function handleSkip(event) {
+    if (event.shiftKey && event.code === "KeyS") {
+        if (typewriterInstance) {
+            typewriterInstance.stop(); // Arrête le typewriter
+            typewriterInstance.elements.cursor.style.display = 'none'; // Masquer le curseur
+            typewriterInstance.state.strings.forEach(str => {
+                typewriterInstance.elements.wrapper.innerHTML += str; // Affiche tout le texte
+            });
+            typewriterInstance = null; // Réinitialiser l'instance après affichage
+        }
+    }
+}
 
 function handleInput(event) {
     if (event.key === "Enter") {
@@ -101,7 +116,7 @@ function handleQuestInput(userInput) {
 }
 
 function afficherMenuEpoques() {
-    const img_banniere = document.getElementById('banniere');
+    const img_banniere = document.querySelector('.banniere');
     img_banniere.style.display = 'none'; // Cacher la bannière
 
     contexteActuel = "menu"; // Mise à jour du contexte
@@ -113,7 +128,7 @@ function afficherMenuEpoques() {
 }
 
 function afficherRecompenses() {
-    const img_banniere = document.getElementById('banniere');
+    const img_banniere = document.querySelector('.banniere');
     img_banniere.style.display = 'none'; // Cacher la bannière
 
     contexteActuel = "recompenses"; // Mise à jour du contexte
@@ -124,7 +139,7 @@ function afficherRecompenses() {
 }
 
 function afficherQuete(epoque) {
-    const img_banniere = document.getElementById('banniere');
+    const img_banniere = document.querySelector('.banniere');
     img_banniere.style.display = 'none'; // Cacher la bannière
 
     epoqueActuelle = epoque;
@@ -135,40 +150,109 @@ function afficherQuete(epoque) {
 }
 
 function afficherDescriptionEpoque(epoque) {
-    const img_banniere = document.getElementById('banniere');
+    const img_banniere = document.querySelector('.banniere');
     const instructions = document.getElementById("instructions");
     let imageSrc = "";
+    let imageId = "";
 
     switch (epoque.nom) {
         case "Égypte Antique":
             imageSrc = "egypte-ban.jpg";
+            imageId = "banniere-egypte"; // Id pour Égypte Antique
             break;
         case "Grèce Antique":
             imageSrc = "grece-ban.jpg";
+            imageId = "banniere-grece"; // Id pour Grèce Antique
             break;
         case "Moyen Âge":
             imageSrc = "moyen-age-ban.jpg";
+            imageId = "banniere-moyen-age"; // Id pour Moyen Âge
             break;
     }
 
     img_banniere.src = './images/' + imageSrc;
     img_banniere.alt = "Bannière " + epoque.nom;
     img_banniere.classList.add("banniere");
+    img_banniere.id = imageId; // Ajouter l'id
     img_banniere.style.display = 'block'; // Afficher la bannière
 
     instructions.innerHTML = ""; // Clear previous instructions
 
-    const typewriter = new Typewriter(instructions, {
+    typewriterInstance = new Typewriter(instructions, {
         loop: false,
         delay: 50,
     });
 
-    typewriter
+    typewriterInstance
         .typeString(`Vous avez choisi de voyager dans : ${epoque.nom}\n\n`)
         .pauseFor(500)
         .typeString(epoque.description + "\n\n")
         .pauseFor(500)
         .typeString(epoque.quete)
         .pauseFor(500)
+        .callFunction(() => {
+            typewriterInstance = null; // Réinitialiser l'instance après typage
+        })
+        .start();
+}
+
+function afficherContexteNarratif() {
+    const instructions = document.getElementById("instructions");
+    typewriterInstance = new Typewriter(instructions, {
+        loop: false,
+        delay: 75,
+    });
+
+    typewriterInstance
+        .typeString('Bienvenue à bord du Vaisseau Temporel "Thanos".')
+        .pauseFor(1000)
+        .typeString(' \nNous sommes actuellement bloqués dans le passé, sans possibilité de retour immédiat au présent.')
+        .pauseFor(1000)
+        .typeString(' \nVotre mission est de naviguer à travers les époques, d\'affronter les défis de chaque époque et d\'acquérir des artefacts précieux.')
+        .pauseFor(1000)
+        .typeString(' \nLe voyage ne sera pas facile, mais avec chaque époque traversée, et son lot d\'épreuves, vous vous rapprocherez un peu plus de votre objectif ultime : revenir en un morceau dans le présent.')
+        .pauseFor(1000)
+        .typeString('\n\nTapez n\'importe quelle commande pour commencer...')
+        .callFunction(() => {
+            typewriterInstance = null; // Réinitialiser l'instance après typage
+        })
+        .start();
+}
+
+function afficherTexteEpoques() {
+    const instructions = document.getElementById("instructions");
+    typewriterInstance = new Typewriter(instructions, {
+        loop: false,
+        delay: 50,
+    });
+
+    typewriterInstance
+        .typeString("Choisissez une époque à explorer :\n")
+        .pauseFor(500)
+        .typeString("1. Égypte Antique\n")
+        .pauseFor(500)
+        .typeString("2. Grèce Antique\n")
+        .pauseFor(500)
+        .typeString("3. Moyen-Âge\n")
+        .callFunction(() => {
+            typewriterInstance = null; // Réinitialiser l'instance après typage
+        })
+        .start();
+}
+
+function afficherMessageRecompense(recompense) {
+    const instructions = document.getElementById("instructions");
+    typewriterInstance = new Typewriter(instructions, {
+        loop: false,
+        delay: 50,
+    });
+
+    typewriterInstance
+        .typeString("Félicitations l'ami ! Vous avez validé cette quête !\n\n")
+        .pauseFor(500)
+        .typeString(`En récompense, vous recevez : ${recompense}`)
+        .callFunction(() => {
+            typewriterInstance = null; // Réinitialiser l'instance après typage
+        })
         .start();
 }

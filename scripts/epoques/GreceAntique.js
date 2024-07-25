@@ -147,7 +147,7 @@ class GreceAntique extends Epoque {
             this.correctAnswers++; // Incrémenter le compteur de bonnes réponses
             feedbackMessage = "Bonne réponse !";
         } else {
-            feedbackMessage = "Réponse incorrecte. La bonne réponse est : " + question.options[question.correctOption];
+            feedbackMessage = "Réponse incorrecte. \n\nLa bonne réponse est : \n\n" + question.options[question.correctOption];
         }
 
         typewriter

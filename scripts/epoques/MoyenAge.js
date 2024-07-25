@@ -66,12 +66,12 @@ class MoyenAge extends Epoque {
         typewriter
             .typeString(actionMessage)
             .pauseFor(500)
-            .typeString(`\nLa licorne enchantée vous inflige ${this.licorneAttaque()} dégâts.`)
+            .typeString(`\n\nLa licorne vous inflige ${this.licorneAttaque()} dégâts.`)
             .start();
 
         setTimeout(() => {
             feedbackElement.innerText = "";
-        }, 2000);
+        }, 8000);
 
         this.verifierEtatCombat();
     }
@@ -80,19 +80,19 @@ class MoyenAge extends Epoque {
         const degats = Math.floor(Math.random() * 10) + 5; // Dégâts entre 5 et 15
         this.licorneVie -= degats;
         this.apaisement += 5; // Augmente le niveau d'apaisement
-        return `Vous avez effectué une attaque mesurée et infligé ${degats} dégâts à la licorne.`;
+        return `Vous attaquez et infligez ${degats} dégâts à la licorne.`;
     }
 
     defense() {
         const reductionDegats = Math.floor(Math.random() * 5) + 5; // Réduit les dégâts de la prochaine attaque de 5 à 10
         this.joueurVie += reductionDegats; // Augmente la vie du joueur pour simuler une réduction des dégâts
-        return `Vous vous êtes défendu et avez réduit les dégâts de ${reductionDegats} points.`;
+        return `Vous vous défendez et réduisez ${reductionDegats} points de dégâts.`;
     }
 
     chantEnchanteur() {
         const apaisementGain = Math.floor(Math.random() * 15) + 10; // Gain d'apaisement entre 10 et 25
         this.apaisement += apaisementGain;
-        return `Vous avez chanté une mélodie apaisante et augmenté le niveau d'apaisement de ${apaisementGain} points.`;
+        return `Vous chantez une jolie mélodie et apaisez la licorne de ${apaisementGain} points.`;
     }
 
     licorneAttaque() {
