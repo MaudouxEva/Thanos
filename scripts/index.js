@@ -101,6 +101,9 @@ function handleQuestInput(userInput) {
 }
 
 function afficherMenuEpoques() {
+    const img_banniere = document.getElementById('banniere');
+    img_banniere.style.display = 'none'; // Cacher la bannière
+
     contexteActuel = "menu"; // Mise à jour du contexte
     const instructions = document.getElementById("instructions");
     instructions.innerHTML = "Choisissez une époque à explorer :\n\n\n" +
@@ -110,6 +113,9 @@ function afficherMenuEpoques() {
 }
 
 function afficherRecompenses() {
+    const img_banniere = document.getElementById('banniere');
+    img_banniere.style.display = 'none'; // Cacher la bannière
+
     contexteActuel = "recompenses"; // Mise à jour du contexte
     const instructions = document.getElementById("instructions");
     instructions.innerHTML = "Voici vos récompenses :\n\n";
@@ -118,6 +124,9 @@ function afficherRecompenses() {
 }
 
 function afficherQuete(epoque) {
+    const img_banniere = document.getElementById('banniere');
+    img_banniere.style.display = 'none'; // Cacher la bannière
+
     epoqueActuelle = epoque;
     contexteActuel = "quete"; // Mise à jour du contexte
     const instructions = document.getElementById("instructions");
@@ -145,6 +154,7 @@ function afficherDescriptionEpoque(epoque) {
     img_banniere.src = './images/' + imageSrc;
     img_banniere.alt = "Bannière " + epoque.nom;
     img_banniere.classList.add("banniere");
+    img_banniere.style.display = 'block'; // Afficher la bannière
 
     instructions.innerHTML = ""; // Clear previous instructions
 

@@ -87,7 +87,7 @@ body {
 }
 
 #instructions {
-    font-size: 15px;
+font-size: 15px;
    padding: 10px;
    text-align: center;
    line-height: 25px;
@@ -129,8 +129,9 @@ body {
 
 .banniere {
     width: 100%;
-    height: auto;
-    margin-bottom: 20px;
+    height: 30%;
+    margin-bottom:0;
+    display: none;   
 }
 
 /* #barre-de-vie-container {

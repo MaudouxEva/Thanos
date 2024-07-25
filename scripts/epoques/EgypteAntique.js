@@ -1,7 +1,7 @@
 class EgypteAntique extends Epoque {
     constructor() {
         super(
-            "Égypte Antique",
+           -
             "Explorez les mystères de l'Égypte Antique.",
             "Déchiffrez les hiéroglyphes pour découvrir les phrases cachées.",
             "un scarabée d'or"
