@@ -4,7 +4,7 @@ class EgypteAntique extends Epoque {
            "Égypte Antique",
             "Explorez les mystères de l'Égypte Antique.",
             "La grande pyramide de Gizeh renferme des symboles sacrés qui racontent l'histoire des pharaons et divinités. \n\nDéchiffrez les hiéroglyphes et découvrez la phrase secrète pour progresser dans votre aventure. \n\nMais attention, chaque erreur pourrait déclencher une malédiction !",
-            "Le Scarabé Doré"
+            "Scarabé Doré"
         );
         
         this.phrases = [

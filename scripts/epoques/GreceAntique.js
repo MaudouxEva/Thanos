@@ -3,7 +3,7 @@ class GreceAntique extends Epoque {
         super("Grèce Antique", 
             "Explorez les mythes et légendes de la Grèce Antique.",
             "ZUT! Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. \n\nvous devez accomplir ses douze travaux mythiques à sa place. \n\nRépondez correctement pour avancer, mais attention, une mauvaise réponse pourrait réveiller la colère des dieux.", 
-            "une amulette grecque"
+            "Tête de Médusa"
 
         );
 
