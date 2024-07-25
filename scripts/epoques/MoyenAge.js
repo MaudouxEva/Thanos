@@ -121,7 +121,7 @@ class MoyenAge extends Epoque {
         if (reussi) {
             this.queteReussie = true; // Marquer la quête comme réussie
             const typewriter = new Typewriter(instructions, {
-                loop: true,
+                loop: false,
                 delay: 50,
             });
 

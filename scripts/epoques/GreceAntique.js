@@ -2,7 +2,7 @@ class GreceAntique extends Epoque {
     constructor() {
         super("Grèce Antique", 
             "Explorez les mythes et légendes de la Grèce Antique.",
-            "ZUT! Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. \nvous devez accomplir ses douze travaux mythiques à sa place. \n\nRépondez correctement pour avancer, mais attention, une mauvaise réponse pourrait réveiller la colère des dieux.", 
+            "ZUT! Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. \n\nvous devez accomplir ses douze travaux mythiques à sa place. \n\nRépondez correctement pour avancer, mais attention, une mauvaise réponse pourrait réveiller la colère des dieux.", 
             "une amulette grecque"
 
         );
@@ -10,16 +10,16 @@ class GreceAntique extends Epoque {
         /* liste des questions de la quête */
         this.questions = [
             {
-                question: "Comment Héraclès tue-t-il le lion de Némée ?\n\n",
+                question: "I. Comment Héraclès tue-t-il le lion de Némée ?\n\n",
                 options: [
-                    "Il le tue en lui enfonçant son bras dans la gorge, l’étouffant et lui brisant la mâchoire.\n",
                     "Il l'endort avec une herbe soporifique avant de l'étrangler.\n",
+                    "Il le tue en lui enfonçant son bras dans la gorge, l’étouffant et lui brisant la mâchoire.\n",
                     "Il utilise une épée enchantée pour trancher sa tête invulnérable.\n"
                 ],
-                correctOption: 0
+                correctOption: 1
             },
             {
-                question: "Quelle était la principale difficulté pour tuer l'Hydre de Lerne ?\n\n",
+                question: "II. Quelle était la principale difficulté pour tuer l'Hydre de Lerne ?\n\n",
                 options: [
                     "Ses têtes repoussaient dès qu'elles étaient coupées.\n",
                     "Elle pouvait se téléporter pour échapper aux attaques.\n",
@@ -28,16 +28,16 @@ class GreceAntique extends Epoque {
                 correctOption: 0
             },
             {
-                question: "Pourquoi capturer la biche de Cérynie était-il un défi ?\n\n",
+                question: "III. Pourquoi capturer la biche de Cérynie était-il un défi ?\n\n",
                 options: [
-                    "Elle était extrêmement rapide et sacrée pour Artémis.\n",
                     "Elle pouvait se transformer en différents animaux pour échapper à ses poursuivants.\n",
-                    "Elle était protégée par une meute de loups féroces.\n"
+                    "Elle était protégée par une meute de loups féroces.\n",
+                    "Elle était extrêmement rapide et sacrée pour Artémis.\n",
                 ],
-                correctOption: 0
+                correctOption: 2
             },
             {
-                question: "Quelle stratégie Héraclès utilise-t-il pour capturer le sanglier d'Érymanthe ?\n\n",
+                question: "IV. Quelle stratégie Héraclès utilise-t-il pour capturer le sanglier d'Érymanthe ?\n\n",
                 options: [
                     "Il le poursuit dans la neige et l'attrape avec un filet.\n",
                     "Il attire le sanglier avec une mélodie envoûtante jouée sur une lyre.\n",
@@ -46,34 +46,34 @@ class GreceAntique extends Epoque {
                 correctOption: 0
             },
             {
-                question: "Quelle méthode Héraclès utilise-t-il pour nettoyer les écuries d'Augias en une journée ?\n\n",
+                question: "V. Quelle méthode Héraclès utilise-t-il pour nettoyer les écuries d'Augias en une journée ?\n\n",
                 options: [
-                    "Il détourne le cours de deux rivières pour laver les écuries.\n",
                     "Il invoque des esprits de la nature pour emporter la saleté.\n",
+                    "Il détourne le cours de deux rivières pour laver les écuries.\n",
                     "Il utilise un bâton magique qui transforme le fumier en or.\n"
                 ],
-                correctOption: 0
+                correctOption: 1
             },
             {
-                question: "Comment Héraclès fait-il fuir les oiseaux du lac Stymphale ?\n\n",
+                question: "VI. Comment Héraclès fait-il fuir les oiseaux du lac Stymphale ?\n\n",
                 options: [
-                    "Il utilise des crotales de bronze pour les effrayer.\n",
                     "Il fait appel à des harpies pour les chasser du lac.\n",
+                    "Il utilise des crotales de bronze pour les effrayer.\n",
                     "Il empoisonne l'eau du lac pour les forcer à partir.\n"
                 ],
-                correctOption: 0
+                correctOption: 1
             },
             {
-                question: "Quelle était la mission d'Héraclès avec le taureau de Crète ?\n\n",
+                question: "VII. Quelle était la mission d'Héraclès avec le taureau de Crète ?\n\n",
                 options: [
-                    "Le capturer et le ramener à Mycènes.\n",
                     "Le convaincre de tirer le char du roi Minos.\n",
-                    "Le dompter pour qu'il garde les portes du labyrinthe.\n"
+                    "Le dompter pour qu'il garde les portes du labyrinthe.\n",
+                    "Le capturer et le ramener à Mycènes.\n",
                 ],
-                correctOption: 0
+                correctOption: 2
             },
             {
-                question: "Pourquoi les chevaux de Diomède étaient-ils si dangereux ?\n\n",
+                question: "VIII. Pourquoi les chevaux de Diomède étaient-ils si dangereux ?\n\n",
                 options: [
                     "Ils étaient carnivores et se nourrissaient de chair humaine.\n",
                     "Ils pouvaient voler et attaquer depuis les airs.\n",
@@ -82,40 +82,40 @@ class GreceAntique extends Epoque {
                 correctOption: 0
             },
             {
-                question: "Comment Héraclès obtient-il la ceinture d'Hippolyte, la reine des Amazones ?\n\n",
+                question: "IX. Comment Héraclès obtient-il la ceinture d'Hippolyte, la reine des Amazones ?\n\n",
                 options: [
-                    "Il la convainc de la lui donner pacifiquement.\n",
                     "Il l'emporte après un duel épique contre Hippolyte.\n",
+                    "Il la convainc de la lui donner pacifiquement.\n",
                     "Il la vole discrètement pendant une fête organisée par les Amazones.\n"
                 ],
-                correctOption: 0
+                correctOption: 1
             },
             {
-                question: "Quelle créature gardait les boeufs de Géryon ?\n\n",
+                question: "X. Quelle créature gardait les boeufs de Géryon ?\n\n",
                 options: [
-                    "Un chien à deux têtes nommé Orthos.\n",
                     "Un serpent de mer géant.\n",
-                    "Un sphinx capable de poser des énigmes mortelles.\n"
+                    "Un sphinx capable de poser des énigmes mortelles.\n",
+                    "Un chien à deux têtes nommé Orthos.\n",
                 ],
-                correctOption: 0
+                correctOption: 2
             },
             {
-                question: "Qui aide Héraclès à obtenir les pommes d'or du jardin des Hespérides ?\n\n",
+                question: "XI. Qui aide Héraclès à obtenir les pommes d'or du jardin des Hespérides ?\n\n",
                 options: [
-                    "Atlas, le titan qui porte le ciel sur ses épaules.\n",
                     "Hermès, le messager des dieux.\n",
-                    "Thésée, le héros athénien.\n"
+                    "Thésée, le héros athénien.\n",
+                    "Atlas, le titan qui porte le ciel sur ses épaules.\n",
                 ],
-                correctOption: 0
+                correctOption: 2
             },
             {
-                question: "Quelle condition Hadès impose-t-il à Héraclès pour capturer Cerbère ?\n\n",
+                question: "XII. Quelle condition Hadès impose-t-il à Héraclès pour capturer Cerbère ?\n\n",
                 options: [
-                    "Capturer Cerbère sans utiliser d'armes.\n",
                     "Ne jamais revenir aux Enfers après cette mission.\n",
+                    "Capturer Cerbère sans utiliser d'armes.\n",
                     "Ramener une fleur magique en échange de Cerbère.\n"
                 ],
-                correctOption: 0
+                correctOption: 1
             }
         ];
         this.currentQuestionIndex = 0;
@@ -138,7 +138,7 @@ class GreceAntique extends Epoque {
         const feedbackElement = document.getElementById("feedback");
 
         const typewriter = new Typewriter(feedbackElement, {
-            loop: true,
+            loop: false,
             delay: 50,
         });
 
@@ -156,7 +156,7 @@ class GreceAntique extends Epoque {
                 setTimeout(() => {
                     this.currentQuestionIndex++;
                     this.afficherQuete();
-                }, 2000); // Délai de 2 secondes pour permettre la lecture du feedback
+                }, 1500); // Délai de 2 secondes pour permettre la lecture du feedback
             })
             .start();
     }
@@ -168,7 +168,7 @@ class GreceAntique extends Epoque {
 
         if (reussi) {
             const typewriter = new Typewriter(instructions, {
-                loop: true,
+                loop: false,
                 delay: 50,
             });
 
