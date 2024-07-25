@@ -2,7 +2,7 @@ class GreceAntique extends Epoque {
     constructor() {
         super("Grèce Antique", 
             "Explorez les mythes et légendes de la Grèce Antique.",
-            "ZUT! Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. \nVous devrez réaliser ses 12 travaux à sa place. \nSoyez aussi vif qu'une loutre !", 
+            "ZUT! Hercule a mangé un pot-au-feu pourri... Le pauvre vomit ses tripes. \nvous devez accomplir ses douze travaux mythiques à sa place. \n\nRépondez correctement pour avancer, mais attention, une mauvaise réponse pourrait réveiller la colère des dieux.", 
             "une amulette grecque"
 
         );
@@ -138,7 +138,7 @@ class GreceAntique extends Epoque {
         const feedbackElement = document.getElementById("feedback");
 
         const typewriter = new Typewriter(feedbackElement, {
-            loop: false,
+            loop: true,
             delay: 50,
         });
 
@@ -159,5 +159,34 @@ class GreceAntique extends Epoque {
                 }, 2000); // Délai de 2 secondes pour permettre la lecture du feedback
             })
             .start();
+    }
+
+    finQuete(reussi) {
+        const instructions = document.getElementById("instructions");
+        const feedback = document.getElementById("feedback");
+        feedback.innerText = "";
+
+        if (reussi) {
+            const typewriter = new Typewriter(instructions, {
+                loop: true,
+                delay: 50,
+            });
+
+            typewriter
+                .typeString("\n\n\nFélicitations l'ami ! \n\nVous avez validé cette quête !\n\n\n")
+                .pauseFor(500)
+                .typeString(`En récompense, vous recevez : \n\n${this.recompense}`)
+                .start();
+                
+            joueur.ajouterRecompense(this.recompense); // Ajouter la récompense au joueur
+        } else {
+            instructions.innerHTML = `
+            <p>Quête échouée. \n\nVous devez réussir au minimum 8 travaux.<br></p>
+            <p>Recommencer la quête? (oui / non)</p>
+            `;
+            contexteActuel = "reessayerQuete";
+        }
+
+       
     }
 }

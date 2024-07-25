@@ -41,6 +41,7 @@ function handleSkip(event) {
     }
 }
 
+// Gère les différents états du joueur dans le jeu
 function handleInput(event) {
     if (event.key === "Enter") {
         event.preventDefault(); // empêche l'action par défaut (soumission de formulaire).
@@ -72,6 +73,7 @@ function handleInput(event) {
     }
 }
 
+// gère la relance de quete si le joueur a échoué
 function handleReessayerQuete(userInput) {
     if (userInput.toLowerCase() === "oui") {
         if (epoqueActuelle instanceof EgypteAntique) {
@@ -109,12 +111,14 @@ function handleMenuInput(userInput) {
     }
 }
 
+// gère la vérification des réponses dans les quetes
 function handleQuestInput(userInput) {
     if (epoqueActuelle) {
         epoqueActuelle.verifierReponse(userInput);
     }
 }
 
+// gère l'affichage du choix d'époque
 function afficherMenuEpoques() {
     const img_banniere = document.querySelector('.banniere');
     img_banniere.style.display = 'none'; // Cacher la bannière
@@ -127,6 +131,7 @@ function afficherMenuEpoques() {
         "3. Moyen-Âge\n\n";
 }
 
+// gère la liste des récompenses
 function afficherRecompenses() {
     const img_banniere = document.querySelector('.banniere');
     img_banniere.style.display = 'none'; // Cacher la bannière
@@ -138,6 +143,7 @@ function afficherRecompenses() {
     instructions.innerHTML += recompensesText;
 }
 
+// gère l'affichage des quetes
 function afficherQuete(epoque) {
     const img_banniere = document.querySelector('.banniere');
     img_banniere.style.display = 'none'; // Cacher la bannière
@@ -149,6 +155,7 @@ function afficherQuete(epoque) {
     epoque.afficherQuete();
 }
 
+// gère l'affichage du descriptof des époques
 function afficherDescriptionEpoque(epoque) {
     const img_banniere = document.querySelector('.banniere');
     const instructions = document.getElementById("instructions");
@@ -179,13 +186,11 @@ function afficherDescriptionEpoque(epoque) {
     instructions.innerHTML = ""; // Clear previous instructions
 
     typewriterInstance = new Typewriter(instructions, {
-        loop: false,
+        loop: true,
         delay: 50,
     });
 
     typewriterInstance
-        .typeString(`Vous avez choisi de voyager dans : ${epoque.nom}\n\n`)
-        .pauseFor(500)
         .typeString(epoque.description + "\n\n")
         .pauseFor(500)
         .typeString(epoque.quete)
@@ -196,61 +201,24 @@ function afficherDescriptionEpoque(epoque) {
         .start();
 }
 
+// gère l'affichage de l'interface d'accueil
 function afficherContexteNarratif() {
     const instructions = document.getElementById("instructions");
     typewriterInstance = new Typewriter(instructions, {
-        loop: false,
-        delay: 75,
-    });
-
-    typewriterInstance
-        .typeString('Bienvenue à bord du Vaisseau Temporel "Thanos".')
-        .pauseFor(1000)
-        .typeString(' \nNous sommes actuellement bloqués dans le passé, sans possibilité de retour immédiat au présent.')
-        .pauseFor(1000)
-        .typeString(' \nVotre mission est de naviguer à travers les époques, d\'affronter les défis de chaque époque et d\'acquérir des artefacts précieux.')
-        .pauseFor(1000)
-        .typeString(' \nLe voyage ne sera pas facile, mais avec chaque époque traversée, et son lot d\'épreuves, vous vous rapprocherez un peu plus de votre objectif ultime : revenir en un morceau dans le présent.')
-        .pauseFor(1000)
-        .typeString('\n\nTapez n\'importe quelle commande pour commencer...')
-        .callFunction(() => {
-            typewriterInstance = null; // Réinitialiser l'instance après typage
-        })
-        .start();
-}
-
-function afficherTexteEpoques() {
-    const instructions = document.getElementById("instructions");
-    typewriterInstance = new Typewriter(instructions, {
-        loop: false,
+        loop: true,
         delay: 50,
     });
 
     typewriterInstance
-        .typeString("Choisissez une époque à explorer :\n")
-        .pauseFor(500)
-        .typeString("1. Égypte Antique\n")
-        .pauseFor(500)
-        .typeString("2. Grèce Antique\n")
-        .pauseFor(500)
-        .typeString("3. Moyen-Âge\n")
-        .callFunction(() => {
-            typewriterInstance = null; // Réinitialiser l'instance après typage
-        })
-        .start();
-}
-
-function afficherMessageRecompense(recompense) {
-    const instructions = document.getElementById("instructions");
-    typewriterInstance = new Typewriter(instructions, {
-        loop: false,
-        delay: 50,
-    });
-
-    typewriterInstance
-        .typeString("Félicitations l'ami ! Vous avez validé cette quête !\n\n")
-        .pauseFor(500)
-        .typeString(`En récompense, vous recevez : ${recompense}`)
+        .typeString('\n\nValeureux humain, bienvenue à bord du Vaisseau Temporel "THANOS".')
+        .pauseFor(1000)
+        .typeString(' \n\nNous sommes actuellement bloqués dans le passé, sans possibilité de retour immédiat au présent.')
+        .pauseFor(1000)
+        .typeString(' \n\nVotre mission est de naviguer à travers les époques, de réaliser des quêtes et d\'acquérir des artefacts précieux.')
+        .pauseFor(1000)
+        .typeString(' \n\nVotre objectif ultime : revenir en un morceau dans le présent.')
+        .pauseFor(1000)
+        .typeString('\n\n\n\n\nTapez n\'importe quelle commande pour commencer...')
         .callFunction(() => {
             typewriterInstance = null; // Réinitialiser l'instance après typage
         })

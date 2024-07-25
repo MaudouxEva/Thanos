@@ -3,8 +3,8 @@ class MoyenAge extends Epoque {
         super(
             "Moyen Âge",
             "Explorez les mystères et légendes du Moyen Âge.",
-            "Affrontez une licorne enchantée et apaisez-la sans la blesser mortellement.",
-            "Corne de Licorne Enchantée"
+            "Une licorne enchantée, autrefois bienveillante, sème désormais la terreur à cause d'un sort maléfique. \nVotre mission est de l'apaiser sans la blesser mortellement. Atteignez le niveau d'apaisement nécessaire avant que l'une de vos vies ne s'épuise.\n\nSoyez aussi vif qu'une loutre !",
+            "Corne de licorne enchantée"
         );
 
         this.reinitialiserQuete();
@@ -59,7 +59,7 @@ class MoyenAge extends Epoque {
         }
 
         const typewriter = new Typewriter(feedbackElement, {
-            loop: false,
+            loop: true,
             delay: 50,
         });
 
@@ -121,21 +121,20 @@ class MoyenAge extends Epoque {
         if (reussi) {
             this.queteReussie = true; // Marquer la quête comme réussie
             const typewriter = new Typewriter(instructions, {
-                loop: false,
+                loop: true,
                 delay: 50,
             });
 
             typewriter
-                .typeString("Félicitations l'ami ! Vous avez apaisé la licorne enchantée.")
-                .pauseFor(500)
-                .typeString(`\n\nEn récompense, vous recevez : \n\n${this.recompense}.`)
-                .start();
-                
+            .typeString("\n\n\nFélicitations l'ami ! \n\nVous avez validé cette quête !\n\n\n")
+            .pauseFor(500)
+            .typeString(`En récompense, vous recevez : \n\n${this.recompense}`)
+            .start();
             joueur.ajouterRecompense(this.recompense); // Ajouter la récompense au joueur
         } else {
             instructions.innerHTML = `
-            Quête échouée. La licorne est soit trop blessée, soit vous êtes trop épuisé.<br>
-            Recommencer la quête? (oui / non)
+            <p>Quête échouée. \n\nSoit vous avez tué la pauvre licorne, soit vous êtes morts comme une larve.</p>
+            <p>Recommencer la quête? (oui / non)</p>
             `;
             contexteActuel = "reessayerQuete";
         }
