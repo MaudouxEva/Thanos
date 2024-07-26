@@ -71,10 +71,12 @@ body, html {
 }
 
 #menu-content {
+    font-family: "Major Mono Display", monospace;  
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 20px;
+    padding: 0 20px;
 }
 
 #menu-content h2 {
@@ -94,6 +96,6 @@ body, html {
 }
 
 #menu button:hover {
-    background-color: #f0f0f0; 
+    background-color: #00ffcc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }

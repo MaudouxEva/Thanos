@@ -1,0 +1,117 @@
+@font-face {
+    font-family: AncientEgyptianHieroglyphs;
+    src: url("fonts/AncientEgyptianHieroglyphs.otf") format("opentype");
+}
+
+
+:root {
+    --color-console : #fdc202be;
+    --color-input : #f5e2c2;
+    --blue-tb : #4cb3c5;
+}
+
+.hieroglyph {
+    font-family: 'AncientEgyptianHieroglyphs';
+    font-size: 35px;
+    line-height: 60px;
+    letter-spacing: 10px;
+    word-spacing: 30px;
+    margin-top: 0;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #000;
+    color: var(--color-console);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    output: none;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-top: 20px;
+    padding: 20px;
+    button {
+        width: 200px;
+        padding: 10px 20px;
+        background-color: var(--color-console);
+        border-radius: 10px;
+        border: none;
+        color: var(--color-input);
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 16px;
+    }
+}
+
+#app {
+    width: 90%;
+    max-width: 800px;
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--color-console);
+}
+
+#output-container {
+    white-space: pre-wrap; /*  préserve tous les espaces et sauts de ligne dans le texte */
+    overflow-y: auto; /* barre de défilement verticale si le contenu dépasse 500 */
+    height: 500px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#input {
+    font-family: 'Courier New', Courier, monospace;
+    width: 90%;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--color-console);
+    background-color: #111;
+    color: var(--color-input);
+    border-radius: 5px;
+    font-size: 14px;;
+}
+
+#instructions {
+    font-size: 15px;
+   padding: 10px;
+   text-align: center;
+   line-height: 25px;;
+}
+
+#feedback {
+    color: var(--blue-tb);
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* #barre-de-vie-container {
+    width: 300px;
+    height: 30px;
+    background-color:var(--color-input);
+    position:relative;
+    overflow: hidden;
+    display:flex;
+    align-items:center;
+    justify-content: flex-start;
+}
+
+#barre-de-vie {
+    height: 100%;
+    background-color: var(--blue-tb);
+    height: 100%; /* Commence pleine et se réduit avec les erreurs */
+
+
